@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>后台登录-超级校园墙</title>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/admin/css/font.css">
+	<link rel="stylesheet" href="/static/admin/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/static/admin/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/admin/js/xadmin.js"></script>
+
+</head>
+<body class="login-bg">
+    
+    <div class="login">
+        <div class="message">超级校园墙-管理登录</div>
+        <div style="align-content: center">还没有账号<a href="#">注册<a/></div>
+        <div id="darkbannerwrap"></div>
+        
+        <form method="post" class="layui-form" >
+            <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+            <hr class="hr15">
+            <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+            <hr class="hr15">
+            <input value="登录" lay-submit lay-filter="login" style="width:100%;" id="submit" type="button">
+            <hr class="hr20" >
+        </form>
+
+
+
+
+    </div>
+    <script>
+        $(function( ){
+            //监听loginbutton
+            $("#submit").on('click',function (){
+                //ajax函数提交到后端，提交的是对象
+                $.ajax({
+                    //提交类型
+                    type: 'POST',
+                    //提交到login控制器下的check方法
+                    url: "{:url('check' )}",
+                    //提交的数据并序列化
+                    data: $(".layui-form").serialize(),
+                    //提交的类型
+                    dataType: "json",
+                    //成功的回调，data是从后端返回的数据
+                    success:function(data) {
+                        //0表示成功，1表示失败
+                        if (data.code == 0) {
+                            layer.msg(data.msg, {icon: 1});
+                            setTimeout(function () {
+                            window.location.href = "{:url('index/index')}";
+                            // alert(data.msg);
+
+                              //  window.location.href = "{:url('index/index')}";
+                               // parent.window.location.reload();
+                          },1000)
+
+                        } else {
+                            layer.msg(data.msg,{icon:2})
+                            // window.location.href = "{:url('login/index')}";
+                        }
+                    }
+
+                });
+                return data;
+            })})
+    </script>
+
+
+</body>
+</html>

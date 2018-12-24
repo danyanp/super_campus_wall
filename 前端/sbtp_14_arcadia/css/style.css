@@ -69,6 +69,13 @@
 	label{
 		font-weight: 300;
 	}
+	.logo img{
+	width: 150px;
+    margin-bottom: 5px;
+    position: relative;
+    vertical-align: baseline;	
+	}
+
 
 	#pre-status,
 	.preload-placeholder {
@@ -601,7 +608,7 @@
 		right:0;
 	}
 
-	#office-carousel .item img{
+	#office-carousel .item {
 		width: 100%;
 	}
 
